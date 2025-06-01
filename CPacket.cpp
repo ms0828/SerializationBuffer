@@ -29,7 +29,9 @@ CPacket::~CPacket()
 
 void CPacket::Clear(void)
 {
-	memset(buffer, 0, bufferMaxSize);
+	writePtr = buffer;
+	readPtr = buffer;
+	useSize = 0;
 }
 
 int CPacket::MoveWritePos(int iSize)
@@ -43,7 +45,6 @@ int CPacket::MoveWritePos(int iSize)
 
 int CPacket::MoveReadPos(int iSize)
 {
-	
 	if (readPtr + iSize > buffer + bufferMaxSize)
 		return 0;
 	readPtr = readPtr + iSize;
